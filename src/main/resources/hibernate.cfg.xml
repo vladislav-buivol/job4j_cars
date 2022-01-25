@@ -17,9 +17,20 @@
         <property name="format_sql">true</property>
         <property name="use_sql_comments">true</property>
 
-        <mapping class="cars.model.Car"/>
-        <mapping class="cars.model.Engine"/>
-        <mapping class="cars.model.Driver"/>
+
+        <mapping class="ru.job4j.model.adv.Advertisement"/>
+        <mapping class="ru.job4j.model.adv.Image"/>
+
+        <mapping class="ru.job4j.model.car.Car"/>
+        <mapping class="ru.job4j.model.car.Driver"/>
+        <mapping class="ru.job4j.model.car.Engine"/>
+        <mapping class="ru.job4j.model.car.Model"/>
+
+        <mapping class="ru.job4j.model.role.Action"/>
+        <mapping class="ru.job4j.model.role.Role"/>
+
+        <mapping class="ru.job4j.model.user.Account"/>
+        <mapping class="ru.job4j.model.user.Address"/>
 
     </session-factory>
 </hibernate-configuration>

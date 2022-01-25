@@ -1,4 +1,4 @@
-package cars.store;
+package ru.job4j.store;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;

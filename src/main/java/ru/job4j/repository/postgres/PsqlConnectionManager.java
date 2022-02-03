@@ -1,4 +1,4 @@
-package ru.job4j.store;
+package ru.job4j.repository.postgres;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;

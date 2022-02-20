@@ -5,6 +5,7 @@ import ru.job4j.model.user.Account;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -24,8 +25,13 @@ public class Advertisement {
     @JoinColumn(name = "car_id", foreignKey = @ForeignKey(name = "CAR_ID_FK"))
     private Car car;
 
-    @OneToMany(orphanRemoval = true, mappedBy = "adv")
-    private Set<Image> images;
+    @OneToMany(
+            mappedBy = "adv",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    private Set<Image> images = new HashSet<>();
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
@@ -98,5 +104,14 @@ public class Advertisement {
 
     public void setImages(Set<Image> images) {
         this.images = images;
+    }
+
+    public void addImage(Image img) {
+        images.add(img);
+        img.setAdv(this);
+    }
+
+    public void removeImage(Image img) {
+        images.remove(img);
     }
 }

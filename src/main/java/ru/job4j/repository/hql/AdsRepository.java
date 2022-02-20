@@ -1,20 +1,27 @@
-package ru.job4j.repository.postgres;
+package ru.job4j.repository.hql;
 
 import ru.job4j.model.adv.Advertisement;
+import ru.job4j.repository.Database;
 import ru.job4j.repository.Store;
+import ru.job4j.repository.hql.database.psql.PsqlDatabase;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
-public class AdRepository extends PsqlStore<Advertisement> {
+public class AdsRepository implements Store<Advertisement> {
 
-    private AdRepository() {
+    private final Database<Advertisement> database =
+            new PsqlDatabase<>(Advertisement.class);
+
+    private AdsRepository() {
     }
 
     private static final class Lazy {
-        private static final Store<Advertisement> INST = new AdRepository();
+        private static final Store<Advertisement> INST = new AdsRepository();
     }
 
     public static Store<Advertisement> instOf() {
@@ -23,7 +30,7 @@ public class AdRepository extends PsqlStore<Advertisement> {
 
     public List<Advertisement> lastDayAnnouncements() {
         Timestamp currantDate = Timestamp.valueOf(LocalDate.now().atStartOfDay());
-        return this.execute(session -> session.createQuery("from Advertisement as adv "
+        return database.execute(session -> session.createQuery("from Advertisement as adv "
                 + "where adv.created>:startDate "
 
         ).setParameter("startDate", currantDate)
@@ -31,14 +38,14 @@ public class AdRepository extends PsqlStore<Advertisement> {
     }
 
     public List<Advertisement> showAdvWithPhotos() {
-        return this.execute(session -> session
-                .createQuery("select adv from Advertisement adv, Image img "
+        return database.execute(
+                session -> session.createQuery("select adv from Advertisement adv, Image img "
                         + "join fetch adv.images "
                         + "where img.adv.id = adv.id").list());
     }
 
     public List<Advertisement> showAdvModel(int modelId) {
-        return this.execute(session -> session
+        return database.execute(session -> session
                 .createQuery("select adv from Advertisement adv "
                         + "join fetch adv.car "
                         + "where adv.car.model.id=:mId"
@@ -49,7 +56,8 @@ public class AdRepository extends PsqlStore<Advertisement> {
 
     @Override
     public Advertisement add(Advertisement advertisement) throws SQLException {
-        return this.execute(session -> {
+        return database.execute(session -> {
+            Class<Advertisement> clazz = Advertisement.class;
             Integer id = (Integer) session.save(advertisement);
             advertisement.setId(id);
             return advertisement;
@@ -63,20 +71,27 @@ public class AdRepository extends PsqlStore<Advertisement> {
 
     @Override
     public boolean delete(String id) {
-        return execute(session -> session.createQuery("delete from Advertisement where id =:id")
-                .setParameter("id", Integer.parseInt(id))
-                .executeUpdate() == 1
-        );
+        return database.delete(id);
     }
 
     @Override
     public List<Advertisement> findAll() {
-        return this
-                .execute(session -> session.createQuery("from Advertisement order by id").list());
+        return (List<Advertisement>) database.findAll();
     }
 
     @Override
     public Advertisement findById(String id) {
-        return findById(id, Advertisement.class);
+        return database.findById(id);
     }
+
+    @Override
+    public Collection<Advertisement> executeSelect(String query, Map<String, Object> params) {
+        return database.executeSelect(query, params);
+    }
+
+    @Override
+    public boolean executeUpdate(String query, Map<String, Object> params) {
+        return database.executeUpdate(query, params);
+    }
+
 }

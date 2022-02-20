@@ -5,7 +5,7 @@ import ru.job4j.model.adv.Image;
 import ru.job4j.model.car.Car;
 import ru.job4j.model.car.Model;
 import ru.job4j.model.user.Account;
-import ru.job4j.repository.postgres.AdRepository;
+import ru.job4j.repository.hql.AdsRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +19,21 @@ public class IndexServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+
+        Model model = new Model();
+        Car car = new Car(model);
+        Advertisement ad = new Advertisement(new Account(), car);
+        Image img = new Image();
+        ad.addImage(img);
+        try {
+            AdsRepository.instOf().add(ad);
+            AdsRepository.instOf().delete(ad.getId() + "");
+
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        AdsRepository.instOf().findAll();
+        AdsRepository.instOf().delete("17");
         resp.sendRedirect(req.getContextPath() + "/index.jsp");
     }
 
@@ -28,17 +43,14 @@ public class IndexServlet extends HttpServlet {
 
         try {
             Advertisement ad = new Advertisement(new Account(), car);
-            AdRepository.instOf().add(ad);
-            ((AdRepository) AdRepository.instOf()).execute(session -> {
-                session.save(new Image(ad));
-                return 1;
-            });
+            AdsRepository.instOf().add(ad);
+            AdsRepository.instOf().findAll();
 
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
-        System.out.println(((AdRepository) AdRepository.instOf()).lastDayAnnouncements());
-        System.out.println(((AdRepository) AdRepository.instOf()).showAdvWithPhotos());
-        System.out.println(((AdRepository) AdRepository.instOf()).showAdvModel(1));
+        System.out.println(((AdsRepository) AdsRepository.instOf()).lastDayAnnouncements());
+        System.out.println(((AdsRepository) AdsRepository.instOf()).showAdvWithPhotos());
+        System.out.println(((AdsRepository) AdsRepository.instOf()).showAdvModel(1));
     }
 }

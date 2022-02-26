@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class AdsRepository implements Store<Advertisement> {
 
-    private final Database<Advertisement> database =
+    private final Database<Advertisement> databaseDelegate =
             new PsqlDatabase<>(Advertisement.class);
 
     private AdsRepository() {
@@ -30,7 +30,7 @@ public class AdsRepository implements Store<Advertisement> {
 
     public List<Advertisement> lastDayAnnouncements() {
         Timestamp currantDate = Timestamp.valueOf(LocalDate.now().atStartOfDay());
-        return database.execute(session -> session.createQuery("from Advertisement as adv "
+        return databaseDelegate.execute(session -> session.createQuery("from Advertisement as adv "
                 + "where adv.created>:startDate "
 
         ).setParameter("startDate", currantDate)
@@ -38,14 +38,14 @@ public class AdsRepository implements Store<Advertisement> {
     }
 
     public List<Advertisement> showAdvWithPhotos() {
-        return database.execute(
+        return databaseDelegate.execute(
                 session -> session.createQuery("select adv from Advertisement adv, Image img "
                         + "join fetch adv.images "
                         + "where img.adv.id = adv.id").list());
     }
 
     public List<Advertisement> showAdvModel(int modelId) {
-        return database.execute(session -> session
+        return databaseDelegate.execute(session -> session
                 .createQuery("select adv from Advertisement adv "
                         + "join fetch adv.car "
                         + "where adv.car.model.id=:mId"
@@ -56,7 +56,7 @@ public class AdsRepository implements Store<Advertisement> {
 
     @Override
     public Advertisement add(Advertisement advertisement) throws SQLException {
-        return database.execute(session -> {
+        return databaseDelegate.execute(session -> {
             Class<Advertisement> clazz = Advertisement.class;
             Integer id = (Integer) session.save(advertisement);
             advertisement.setId(id);
@@ -71,27 +71,27 @@ public class AdsRepository implements Store<Advertisement> {
 
     @Override
     public boolean delete(String id) {
-        return database.delete(id);
+        return databaseDelegate.delete(id);
     }
 
     @Override
     public List<Advertisement> findAll() {
-        return (List<Advertisement>) database.findAll();
+        return (List<Advertisement>) databaseDelegate.findAll();
     }
 
     @Override
     public Advertisement findById(String id) {
-        return database.findById(id);
+        return databaseDelegate.findById(id);
     }
 
     @Override
     public Collection<Advertisement> executeSelect(String query, Map<String, Object> params) {
-        return database.executeSelect(query, params);
+        return databaseDelegate.executeSelect(query, params);
     }
 
     @Override
     public boolean executeUpdate(String query, Map<String, Object> params) {
-        return database.executeUpdate(query, params);
+        return databaseDelegate.executeUpdate(query, params);
     }
 
 }

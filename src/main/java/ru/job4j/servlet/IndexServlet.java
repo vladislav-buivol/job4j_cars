@@ -19,7 +19,10 @@ public class IndexServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        req.getRequestDispatcher("/index.jsp").forward(req, resp);
+    }
 
+    private void adsRepotest(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Model model = new Model();
         Car car = new Car(model);
         Advertisement ad = new Advertisement(new Account(), car);

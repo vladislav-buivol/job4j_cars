@@ -1,8 +1,9 @@
-package ru.job4j.repository.hql.database.psql;
+package ru.job4j.repository.database.psql;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import ru.job4j.model.EntityModel;
 import ru.job4j.repository.Database;
 
 import javax.persistence.criteria.CriteriaQuery;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-public class PsqlDatabase<T> implements Database<T> {
+public class PsqlDatabase<T extends EntityModel> implements Database<T> {
 
     private final Class<T> clazz;
 
@@ -42,6 +43,11 @@ public class PsqlDatabase<T> implements Database<T> {
 
     @Override
     public T add(T t) throws SQLException {
+        execute(session -> {
+            Integer id = (Integer) session.save(t);
+            t.setId(id);
+            return t;
+        });
         return null;
     }
 
@@ -80,22 +86,20 @@ public class PsqlDatabase<T> implements Database<T> {
 
     @Override
     public List<T> executeSelect(String query, Map<String, Object> params) {
-        return execute(session -> rawQuery(query, params).list());
+        return execute(session -> rawQuery(query, params, session).list());
     }
 
     @Override
     public boolean executeUpdate(String query, Map<String, Object> params) {
         return this
-                .execute(session -> rawQuery(query, params).executeUpdate() == 1);
+                .execute(session -> rawQuery(query, params, session).executeUpdate() == 1);
     }
 
-    private Query rawQuery(String query, Map<String, Object> params) {
-        final Session session = PsqlConnectionManager.instOf().getSf().openSession();
+    private Query rawQuery(String query, Map<String, Object> params, Session session) {
         Query q = session.createQuery(query);
         for (String key : params.keySet()) {
             q.setParameter(key, params.get(key));
         }
-        session.close();
         return q;
     }
 

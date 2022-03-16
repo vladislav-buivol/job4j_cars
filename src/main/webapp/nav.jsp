@@ -11,27 +11,22 @@
                 <span class="icon icon-bar"></span>
                 <span class="icon icon-bar"></span>
             </button>
-
             <!-- lOGO TEXT HERE -->
-            <a href="<%=request.getContextPath()%>"class="navbar-brand">Car Dealer Website</a>
+            <a href="<%=request.getContextPath()%>" class="navbar-brand">Car Dealer Website</a>
         </div>
 
         <!-- MENU LINKS -->
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-nav-first">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="<%=request.getContextPath()%>">Home</a></li>
                 <li><a href="cars.html">Cars</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">More <span class="caret"></span></a>
-
-                    <ul class="dropdown-menu">
-                        <li><a href="blog-posts.html">Blog</a></li>
-                        <li><a href="team.html">Team</a></li>
-                        <li><a href="testimonials.html">Testimonials</a></li>
-                    </ul>
+                <li>
+                    <c:if test="${not empty account}">
+                        <a class="nav-link" href="<%=request.getContextPath()%>/add.jsp">
+                            Sale car
+                        </a>
+                    </c:if>
                 </li>
-                <li><a href="contact.html">Contact Us</a></li>
                 <c:choose>
                     <c:when test="${empty account}">
                         <li class="nav-item">

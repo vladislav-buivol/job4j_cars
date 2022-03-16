@@ -1,5 +1,6 @@
 package ru.job4j.model.user;
 
+import ru.job4j.model.EntityModel;
 import ru.job4j.model.role.Role;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 @Entity
-public class Account {
+public class Account implements EntityModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -50,10 +51,12 @@ public class Account {
         return false;
     }
 
+    @Override
     public int getId() {
         return id;
     }
 
+    @Override
     public void setId(int id) {
         this.id = id;
     }

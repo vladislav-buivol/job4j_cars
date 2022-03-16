@@ -30,6 +30,23 @@
         <servlet-name>AuthServlet</servlet-name>
         <servlet-class>ru.job4j.servlet.auth.AuthServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddAdvServlet</servlet-name>
+        <servlet-class>ru.job4j.servlet.AddAdvServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EngineServlet</servlet-name>
+        <servlet-class>ru.job4j.servlet.car.EngineServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CarModelServlet</servlet-name>
+        <servlet-class>ru.job4j.servlet.car.CarModelServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>UploadServlet</servlet-name>
+        <servlet-class>ru.job4j.servlet.UploadServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>IndexServlet</servlet-name>
@@ -46,6 +63,22 @@
     <servlet-mapping>
         <servlet-name>AuthServlet</servlet-name>
         <url-pattern>/login.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddAdvServlet</servlet-name>
+        <url-pattern>/add.jsp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EngineServlet</servlet-name>
+        <url-pattern>/engine</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CarModelServlet</servlet-name>
+        <url-pattern>/carModels</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadServlet</servlet-name>
+        <url-pattern>/upload.jsp</url-pattern>
     </servlet-mapping>
 
 

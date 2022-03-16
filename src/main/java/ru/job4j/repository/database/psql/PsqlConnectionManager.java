@@ -1,4 +1,4 @@
-package ru.job4j.repository.hql.database.psql;
+package ru.job4j.repository.database.psql;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;

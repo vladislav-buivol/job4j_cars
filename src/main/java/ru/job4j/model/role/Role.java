@@ -1,10 +1,12 @@
 package ru.job4j.model.role;
 
+import ru.job4j.model.EntityModel;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class Role {
+public class Role implements EntityModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -16,4 +18,14 @@ public class Role {
             @JoinColumn(name = "action_id", nullable = false, updatable = false)}
     )
     private Set<Action> allowedActions;
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
 }

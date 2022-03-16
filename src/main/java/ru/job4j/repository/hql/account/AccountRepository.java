@@ -1,9 +1,9 @@
-package ru.job4j.repository.hql;
+package ru.job4j.repository.hql.account;
 
 import ru.job4j.model.user.Account;
 import ru.job4j.repository.Database;
 import ru.job4j.repository.Store;
-import ru.job4j.repository.hql.database.psql.PsqlDatabase;
+import ru.job4j.repository.database.psql.PsqlDatabase;
 
 import java.sql.SQLException;
 import java.util.Collection;
@@ -35,17 +35,16 @@ public class AccountRepository implements Store<Account> {
             e.printStackTrace();
             return null;
         }
-
     }
 
     @Override
     public Account add(Account account) throws SQLException {
-        return databaseDelegate.execute(session -> {
-            Class<Account> clazz = Account.class;
+        return databaseDelegate.add(account);
+        /*return databaseDelegate.execute(session -> {
             Integer id = (Integer) session.save(account);
             account.setId(id);
             return account;
-        });
+        });*/
     }
 
     @Override
@@ -60,7 +59,7 @@ public class AccountRepository implements Store<Account> {
 
     @Override
     public Collection<Account> findAll() {
-        return (List<Account>) databaseDelegate.findAll();
+        return databaseDelegate.findAll();
     }
 
     @Override

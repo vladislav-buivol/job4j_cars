@@ -5,7 +5,7 @@ import ru.job4j.model.adv.Image;
 import ru.job4j.model.car.Car;
 import ru.job4j.model.car.Model;
 import ru.job4j.model.user.Account;
-import ru.job4j.repository.hql.AdsRepository;
+import ru.job4j.repository.hql.adv.AdsRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

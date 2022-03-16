@@ -39,15 +39,15 @@
                 <form action="<%=request.getContextPath()%>/registration.do" autocomplete="off" method="post" class="courses-detail">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" name="name" autocomplete="off">
+                        <input type="text" class="form-control" name="name" autocomplete="off" required>
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" class="form-control" name="email" autocomplete="off">
+                        <input type="email" class="form-control" name="email" autocomplete="off" required>
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" class="form-control" name="password" autocomplete="off">
+                        <input type="password" class="form-control" name="password" autocomplete="off" required>
                     </div>
                     <c:if test="${not empty errMsg}">
                         <div style="color:#ff0000; font-weight: bold; margin: 30px 0;">

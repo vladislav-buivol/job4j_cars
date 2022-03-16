@@ -1,7 +1,7 @@
 package ru.job4j.servlet.auth;
 
 import ru.job4j.model.user.Account;
-import ru.job4j.repository.hql.AccountRepository;
+import ru.job4j.repository.hql.account.AccountRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,15 +24,15 @@ public class AuthServlet extends HttpServlet {
                 (List<Account>) AccountRepository.instOf()
                         .executeSelect("from Account where email=:email", params);
         if (accounts.isEmpty()) {
-            req.setAttribute("error", "User with this email was not found");
+            req.setAttribute("errMsg", "User with this email was not found");
         } else {
             Account account = accounts.get(0);
             if (account.validatePwd(password)) {
                 createSession(req, resp, accounts);
+                return;
             } else {
-                req.setAttribute("error", "Invalid password");
+                req.setAttribute("errMsg", "Invalid password");
             }
-            return;
         }
         req.getRequestDispatcher("login.jsp").forward(req, resp);
     }

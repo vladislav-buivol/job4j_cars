@@ -1,9 +1,9 @@
-package ru.job4j.repository.hql;
+package ru.job4j.repository.hql.adv;
 
 import ru.job4j.model.adv.Advertisement;
 import ru.job4j.repository.Database;
 import ru.job4j.repository.Store;
-import ru.job4j.repository.hql.database.psql.PsqlDatabase;
+import ru.job4j.repository.database.psql.PsqlDatabase;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -56,12 +56,13 @@ public class AdsRepository implements Store<Advertisement> {
 
     @Override
     public Advertisement add(Advertisement advertisement) throws SQLException {
-        return databaseDelegate.execute(session -> {
+        return databaseDelegate.add(advertisement);
+        /*return databaseDelegate.execute(session -> {
             Class<Advertisement> clazz = Advertisement.class;
             Integer id = (Integer) session.save(advertisement);
             advertisement.setId(id);
             return advertisement;
-        });
+        });*/
     }
 
     @Override

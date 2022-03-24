@@ -54,15 +54,21 @@ public class AdsRepository implements Store<Advertisement> {
                 .list());
     }
 
+    public List<Advertisement> showAdvData() {
+        return databaseDelegate.execute(
+                session -> session.createQuery("select distinct adv from Advertisement adv "
+                        + "left join fetch adv.images "
+                        + "left join fetch adv.account "
+                        + "left join fetch adv.car as c "
+                        + "left join fetch c.drivers "
+                        + "left join fetch c.model "
+                        + "left join fetch c.engine "
+                        + "").list());
+    }
+
     @Override
     public Advertisement add(Advertisement advertisement) throws SQLException {
         return databaseDelegate.add(advertisement);
-        /*return databaseDelegate.execute(session -> {
-            Class<Advertisement> clazz = Advertisement.class;
-            Integer id = (Integer) session.save(advertisement);
-            advertisement.setId(id);
-            return advertisement;
-        });*/
     }
 
     @Override

@@ -11,7 +11,7 @@ public class Role implements EntityModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "permissions", joinColumns = {
             @JoinColumn(name = "role_id", nullable = false, updatable = false)
     }, inverseJoinColumns = {

@@ -42,6 +42,10 @@
         <servlet-name>CarModelServlet</servlet-name>
         <servlet-class>ru.job4j.servlet.car.CarModelServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoadAdv</servlet-name>
+        <servlet-class>ru.job4j.servlet.adv.LoadAdv</servlet-class>
+    </servlet>
 
     <servlet>
         <servlet-name>UploadServlet</servlet-name>
@@ -75,6 +79,10 @@
     <servlet-mapping>
         <servlet-name>CarModelServlet</servlet-name>
         <url-pattern>/carModels</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadAdv</servlet-name>
+        <url-pattern>/adv</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UploadServlet</servlet-name>

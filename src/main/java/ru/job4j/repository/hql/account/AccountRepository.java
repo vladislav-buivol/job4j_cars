@@ -40,11 +40,6 @@ public class AccountRepository implements Store<Account> {
     @Override
     public Account add(Account account) throws SQLException {
         return databaseDelegate.add(account);
-        /*return databaseDelegate.execute(session -> {
-            Integer id = (Integer) session.save(account);
-            account.setId(id);
-            return account;
-        });*/
     }
 
     @Override

@@ -1,7 +1,6 @@
-package ru.job4j.repository.hql.car;
+package ru.job4j.repository.hql.adv;
 
-
-import ru.job4j.model.car.Car;
+import ru.job4j.model.adv.Image;
 import ru.job4j.repository.Database;
 import ru.job4j.repository.Store;
 import ru.job4j.repository.database.psql.PsqlDatabase;
@@ -11,29 +10,29 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-public class CarRepository implements Store<Car> {
+public class ImageRepository implements Store<Image> {
 
-    private final Database<Car> databaseDelegate =
-            new PsqlDatabase<>(Car.class);
+    private final Database<Image> databaseDelegate =
+            new PsqlDatabase<>(Image.class);
 
-    public CarRepository() {
+    private ImageRepository() {
     }
 
     private static final class Lazy {
-        private static final Store<Car> INST = new CarRepository();
+        private static final Store<Image> INST = new ImageRepository();
     }
 
-    public static Store<Car> instOf() {
-        return CarRepository.Lazy.INST;
-    }
-
-    @Override
-    public Car add(Car car) throws SQLException {
-        return databaseDelegate.add(car);
+    public static Store<Image> instOf() {
+        return ImageRepository.Lazy.INST;
     }
 
     @Override
-    public boolean replace(String id, Car car) {
+    public Image add(Image image) throws SQLException {
+        return databaseDelegate.add(image);
+    }
+
+    @Override
+    public boolean replace(String id, Image image) {
         throw new UnsupportedOperationException("replace not supported yet");
     }
 
@@ -43,17 +42,17 @@ public class CarRepository implements Store<Car> {
     }
 
     @Override
-    public List<Car> findAll() {
-        return (List<Car>) databaseDelegate.findAll();
+    public List<Image> findAll() {
+        return (List<Image>) databaseDelegate.findAll();
     }
 
     @Override
-    public Car findById(String id) {
+    public Image findById(String id) {
         return databaseDelegate.findById(id);
     }
 
     @Override
-    public Collection<Car> executeSelect(String query, Map<String, Object> params) {
+    public Collection<Image> executeSelect(String query, Map<String, Object> params) {
         return databaseDelegate.executeSelect(query, params);
     }
 
@@ -61,4 +60,5 @@ public class CarRepository implements Store<Car> {
     public boolean executeUpdate(String query, Map<String, Object> params) {
         return databaseDelegate.executeUpdate(query, params);
     }
+
 }

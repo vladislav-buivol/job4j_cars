@@ -54,7 +54,6 @@ public class EngineRepo implements Store<Engine> {
     @Override
     public Collection<Engine> executeSelect(String query, Map<String, Object> params) {
         return databaseDelegate.executeSelect(query, params);
-
     }
 
     @Override

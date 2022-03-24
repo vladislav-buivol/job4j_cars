@@ -55,6 +55,7 @@ public class AddAdvServlet extends HttpServlet {
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
+        resp.sendRedirect(req.getContextPath());
     }
 
     private AddAdvForm getFormData(HttpServletRequest req, HttpServletResponse resp,
@@ -77,7 +78,6 @@ public class AddAdvServlet extends HttpServlet {
                     String contentType = fileItem.getContentType();
                     resp.setContentType(contentType);
                     long size = fileItem.getSize();
-                    String toString = fileItem.toString();
                     ImgData imgData = new ImgData(imgName, contentType, fileItem.get(), size);
                     form.addImg(imgData);
                 }
@@ -85,7 +85,6 @@ public class AddAdvServlet extends HttpServlet {
         } catch (FileUploadException e) {
             e.printStackTrace();
         }
-
         return form;
     }
 

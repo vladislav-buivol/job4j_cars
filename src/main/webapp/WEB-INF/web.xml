@@ -32,7 +32,7 @@
     </servlet>
     <servlet>
         <servlet-name>AddAdvServlet</servlet-name>
-        <servlet-class>ru.job4j.servlet.AddAdvServlet</servlet-class>
+        <servlet-class>ru.job4j.servlet.adv.form.AddAdvServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EngineServlet</servlet-name>
@@ -43,8 +43,16 @@
         <servlet-class>ru.job4j.servlet.car.CarModelServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LoadAdv</servlet-name>
-        <servlet-class>ru.job4j.servlet.adv.LoadAdv</servlet-class>
+        <servlet-name>LoadAllAdv</servlet-name>
+        <servlet-class>ru.job4j.servlet.adv.LoadAllAdv</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadUserAdv</servlet-name>
+        <servlet-class>ru.job4j.servlet.adv.LoadUserAdv</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditAdvServlet</servlet-name>
+        <servlet-class>ru.job4j.servlet.adv.form.EditAdvServlet</servlet-class>
     </servlet>
 
     <servlet>
@@ -81,12 +89,20 @@
         <url-pattern>/carModels</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LoadAdv</servlet-name>
+        <servlet-name>LoadAllAdv</servlet-name>
         <url-pattern>/adv</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditAdvServlet</servlet-name>
+        <url-pattern>/edit.jsp</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UploadServlet</servlet-name>
         <url-pattern>/upload.jsp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadUserAdv</servlet-name>
+        <url-pattern>/myAdv.jsp</url-pattern>
     </servlet-mapping>
 
 

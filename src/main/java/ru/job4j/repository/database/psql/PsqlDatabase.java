@@ -52,7 +52,11 @@ public class PsqlDatabase<T extends EntityModel> implements Database<T> {
     }
 
     @Override
-    public boolean replace(String id, T t) {
+    public boolean update(String id, T t) {
+        execute(session -> {
+            session.merge(t);
+            return true;
+        });
         return false;
     }
 

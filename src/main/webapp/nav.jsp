@@ -19,11 +19,17 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-nav-first">
                 <li><a href="<%=request.getContextPath()%>">Home</a></li>
-                <li><a href="cars.html">Cars</a></li>
                 <li>
                     <c:if test="${not empty account}">
                         <a class="nav-link" href="<%=request.getContextPath()%>/add.jsp">
                             Sale car
+                        </a>
+                    </c:if>
+                </li>
+                <li>
+                    <c:if test="${not empty account}">
+                        <a class="nav-link" href="<%=request.getContextPath()%>/adv/myAdv.jsp">
+                            My Advertisements
                         </a>
                     </c:if>
                 </li>

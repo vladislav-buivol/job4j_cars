@@ -32,7 +32,7 @@ public class ImageRepository implements Store<Image> {
     }
 
     @Override
-    public boolean replace(String id, Image image) {
+    public boolean update(String id, Image image) {
         throw new UnsupportedOperationException("replace not supported yet");
     }
 

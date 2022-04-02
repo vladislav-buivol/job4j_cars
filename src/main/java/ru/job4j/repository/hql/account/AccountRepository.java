@@ -43,7 +43,7 @@ public class AccountRepository implements Store<Account> {
     }
 
     @Override
-    public boolean replace(String id, Account account) {
+    public boolean update(String id, Account account) {
         throw new UnsupportedOperationException("replace not supported yet");
     }
 

@@ -7,7 +7,7 @@ import java.util.Map;
 public interface Store<T> {
     T add(T t) throws SQLException;
 
-    boolean replace(String id, T t);
+    boolean update(String id, T t);
 
     boolean delete(String id);
 

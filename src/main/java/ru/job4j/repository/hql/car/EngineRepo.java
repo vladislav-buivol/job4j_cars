@@ -32,7 +32,7 @@ public class EngineRepo implements Store<Engine> {
     }
 
     @Override
-    public boolean replace(String id, Engine engine) {
+    public boolean update(String id, Engine engine) {
         throw new UnsupportedOperationException("replace not supported yet");
     }
 

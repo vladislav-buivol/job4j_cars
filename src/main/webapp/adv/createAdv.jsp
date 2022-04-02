@@ -1,3 +1,4 @@
+<%@ page import="ru.job4j.model.adv.Advertisement" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -20,11 +21,15 @@
     <link rel="stylesheet" href="css/style.css">
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="js/adv/script.js"></script>
+    <script src="js/adv/loadAdvFormData.js"></script>
 
 </head>
 <body>
 <jsp:include page="../nav.jsp"/>
+
+<%
+    Advertisement adv = (Advertisement) request.getAttribute("adv");
+%>
 <section class="section-background">
     <div class="container">
 
@@ -35,7 +40,15 @@
                         <div class="form-group">
                             <label>Used/New:</label>
                             <select class="form-control" id="isUsed" name="isUsed">
-                                <option disabled selected value="-1">-- Used/New: --</option>
+                                <option disabled selected value="<%=adv == null ? "-1" :adv.getCar().isUsed()%>">
+                                    <%if (adv == null) {%>
+                                    Used/New
+                                    <% } else if (adv.getCar().isUsed()) { %>
+                                    Used vehicle
+                                    <% } else { %>
+                                    New vehicle
+                                    <% } %>
+                                </option>
                                 <option value="false">New vehicle</option>
                                 <option value="true">Used vehicle</option>
                             </select>
@@ -43,21 +56,25 @@
 
                         <div class="form-group">
                             <label>Model:</label>
-
                             <select class="form-control" id="model" name="model">
-                                <option disabled selected value="">-- Select model --</option>
+                                <option <%=adv == null ? "disabled" : ""%> selected
+                                                                           value="<%=adv == null ? "-1" :adv.getCar().getModel().getId()%>">
+                                    <%=adv == null ? "-- Select model --" : adv.getCar().getModel().getName()%>
+                                </option>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label>Price:</label>
                             <input id="price" name="price" type="text" class="form-control" autocomplete="off"
+                                   value="<%=adv == null ? "" : adv.getPrice()%>"
                                    required>
                         </div>
 
                         <div class="form-group">
                             <label>Mileage:</label>
                             <input id="mileage" name="mileage" type="text" class="form-control" autocomplete="off"
+                                   value="<%=adv == null ? "" :adv.getCar().getMileage()%>"
                                    required>
                         </div>
 
@@ -65,6 +82,7 @@
                             <label>Number of seats:</label>
                             <input id="numberOfSeats" type="text" class="form-control" name="numberOfSeats"
                                    autocomplete="off"
+                                   value="<%=adv == null ? "" :adv.getCar().getNrOfSeats()%>"
                                    required>
                         </div>
 
@@ -72,7 +90,10 @@
                             <label>Engine size:</label>
 
                             <select id="engine" name="engine" class="form-control">
-                                <option disabled selected value="">-- Select engine --</option>
+                                <option <%=adv == null ? "disabled" : ""%> selected
+                                                                           value="<%=adv == null ? "" :adv.getCar().getEngine().getId()%>">
+                                    <%=adv == null ? "-- Select engine --" : adv.getCar().getEngine().getName()%>
+                                </option>
                             </select>
                         </div>
 
@@ -80,7 +101,10 @@
                             <label>Fuel:</label>
 
                             <select id="fuel" name="fuel" class="form-control">
-                                <option disabled selected value="">-- Select fuel type --</option>
+                                <option <%=adv == null ? "disabled" : ""%> selected
+                                                                           value="<%=adv == null ? "" :adv.getCar().getFuel()%>">
+                                    <%=adv == null ? "-- Select fuel type --" : adv.getCar().getFuel()%>
+                                </option>
                                 <option value="Petrol">Petrol</option>
                                 <option value="Gas">Gas</option>
                                 <option value="Petrol">Petrol/Gas</option>
@@ -93,7 +117,10 @@
                             <label>Gearbox:</label>
 
                             <select id="gearbox" name="gearbox" class="form-control">
-                                <option disabled selected value="">-- Select gearbox --</option>
+                                <option <%=adv == null ? "disabled" : ""%> selected
+                                                                           value="<%=adv == null ? "" :adv.getCar().getGearbox()%>">
+                                    <%=adv == null ? "-- Select gearbox --" : adv.getCar().getGearbox()%>
+                                </option>
                                 <option value="Manual">Manual</option>
                                 <option value="Automatic">Automatic</option>
                             </select>
@@ -103,7 +130,14 @@
                             <label for="img" class="form-label">Add car image</label>
                             <input class="form-control-file" type="file" id="img" name="img" multiple>
                         </div>
-                        <button type="submit" class="section-btn btn btn-primary btn-block">Create an advertisement
+                        <c:if test="${not empty adv}">
+                            <div class="form-group">
+                                <input type="checkbox" id="sold" name="sold">
+                                <label for="sold" >Sold</label>
+                            </div>
+                        </c:if>
+                        <button type="submit" class="section-btn btn btn-primary btn-block">
+                            <%=adv == null ? "Create an advertisement" : "Update advertisement"%>
                         </button>
                     </form>
                 </div>

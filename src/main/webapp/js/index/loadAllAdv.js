@@ -21,11 +21,17 @@ function requestAdvData(successCallback, unSuccessCallback) {
 
 function setData(advertisements) {
     let divs = '';
-    for (let i in advertisements) {
-        let adJson = advertisements[i];
-        let key = Object.keys(adJson)[0];
-        let adv = adJson[key];
-        let imageSrc = 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg';
+
+    function getCondition(adv) {
+        let carCondition = 'New vehicle';
+        if (adv.car.isUsed) {
+            carCondition = 'Used vehicle';
+        }
+        return carCondition;
+    }
+
+    function getImgDAta(adv) {
+        let imageSrc = 'img/cars/empty.jpg';
         if (adv.images.length > 0) {
             let image = adv.images[0];
             imageSrc = "data:image/jpeg;base64,"
@@ -33,17 +39,26 @@ function setData(advertisements) {
                     return data + String.fromCharCode(byte);
                 }, ''));
         }
+        return imageSrc;
+    }
 
-        let carCondition = 'New vehicle';
-        if (adv.car.isUsed) {
-            carCondition = 'Used vehicle';
+    for (let i in advertisements) {
+        let adJson = advertisements[i];
+        let key = Object.keys(adJson)[0];
+        let adv = adJson[key];
+        let imageSrc = getImgDAta(adv);
+        let carCondition = getCondition(adv);
+        let status = '';
+        if (adv.status) {
+            status = '<img src="img/cars/sold.png" class="img-responsive sold" alt="">';
         }
+
         let adDiv = `<div class="col-md-4 col-sm-4">
                 <div class="courses-thumb courses-thumb-secondary">
                     <div class="courses-top">
                         <div class="courses-image">
-                            <img src='${imageSrc}' class="img-responsive" alt="">
-                           
+                            <img src='${imageSrc}' class="img-responsive parent" alt="">
+                            ${status}
                         </div>
                         <div class="courses-date">
                             <span title="Millage"><i class="fa fa-dashboard"></i> ${adv.car.mileage}km</span>
@@ -58,7 +73,8 @@ function setData(advertisements) {
                         <p class="lead"><small>
                         </small> <strong>$${adv.price}</strong></p>
 
-                        <p>${adv.car.fuel} &nbsp;&nbsp;/&nbsp;&nbsp; ${carCondition}</p>
+                        <div>Fuel: ${adv.car.fuel} </div>
+                        <div>Condition: ${carCondition}</div>
                     </div>
 
                     <div class="courses-info">

@@ -66,14 +66,34 @@ public class AdsRepository implements Store<Advertisement> {
                         + "").list());
     }
 
+    public List<Advertisement> showUserAdvData(Integer accountId) {
+        return databaseDelegate.execute(
+                session -> session.createQuery("select distinct adv from Advertisement adv "
+                        + "left join fetch adv.images "
+                        + "left join fetch adv.account "
+                        + "left join fetch adv.car as c "
+                        + "left join fetch c.drivers "
+                        + "left join fetch c.model "
+                        + "left join fetch c.engine "
+                        + "where adv.account.id=:id"
+                ).setParameter("id", accountId)
+                        .list());
+    }
+
     @Override
     public Advertisement add(Advertisement advertisement) throws SQLException {
         return databaseDelegate.add(advertisement);
     }
 
     @Override
-    public boolean replace(String id, Advertisement advertisement) {
-        throw new UnsupportedOperationException("replace not supported yet");
+    public boolean update(String id, Advertisement advertisement) {
+        Advertisement adv = findById(id);
+        adv.setStatus(advertisement.isStatus());
+        adv.addAllImage(advertisement.getImages());
+        adv.setPrice(advertisement.getPrice());
+        adv.setCar(advertisement.getCar());
+        adv.setDescription(advertisement.getDescription());
+        return databaseDelegate.update(id, advertisement);
     }
 
     @Override
@@ -88,7 +108,18 @@ public class AdsRepository implements Store<Advertisement> {
 
     @Override
     public Advertisement findById(String id) {
-        return databaseDelegate.findById(id);
+        return ((Advertisement) databaseDelegate.execute(
+                session -> session.createQuery("select distinct adv from Advertisement adv "
+                        + "left join fetch adv.images "
+                        + "left join fetch adv.account "
+                        + "left join fetch adv.car as c "
+                        + "left join fetch c.drivers "
+                        + "left join fetch c.model "
+                        + "left join fetch c.engine "
+                        + "where adv.id=:id"
+                ).setParameter("id", Integer.parseInt(id))
+                        .list()).get(0));
+        //return databaseDelegate.findById(id);
     }
 
     @Override

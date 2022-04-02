@@ -123,6 +123,13 @@ public class Advertisement implements EntityModel {
         img.setAdv(this);
     }
 
+    public void addAllImage(Set<Image> img) {
+        images.addAll(img);
+        for (Image image : img) {
+            image.setAdv(this);
+        }
+    }
+
     public void removeImage(Image img) {
         images.remove(img);
     }

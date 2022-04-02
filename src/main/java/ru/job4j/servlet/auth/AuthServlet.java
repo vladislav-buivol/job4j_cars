@@ -40,7 +40,11 @@ public class AuthServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.getRequestDispatcher("login.jsp").forward(req, resp);
+        if (req.getSession().getAttribute("account") == null) {
+            req.getRequestDispatcher("login.jsp").forward(req, resp);
+        } else {
+            req.getRequestDispatcher("").forward(req, resp);
+        }
     }
 
     private void createSession(HttpServletRequest req, HttpServletResponse resp,

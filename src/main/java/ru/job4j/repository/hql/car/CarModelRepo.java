@@ -32,7 +32,7 @@ public class CarModelRepo implements Store<Model> {
     }
 
     @Override
-    public boolean replace(String id, Model model) {
+    public boolean update(String id, Model model) {
         throw new UnsupportedOperationException("replace not supported yet");
     }
 

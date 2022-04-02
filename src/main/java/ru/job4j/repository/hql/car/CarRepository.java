@@ -33,7 +33,7 @@ public class CarRepository implements Store<Car> {
     }
 
     @Override
-    public boolean replace(String id, Car car) {
+    public boolean update(String id, Car car) {
         throw new UnsupportedOperationException("replace not supported yet");
     }
 

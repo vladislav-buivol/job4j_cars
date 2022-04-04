@@ -7,9 +7,9 @@ import ru.job4j.model.car.Car;
 import ru.job4j.model.car.Engine;
 import ru.job4j.model.car.Model;
 import ru.job4j.model.user.Account;
-import ru.job4j.repository.hql.adv.AdsRepository;
-import ru.job4j.repository.hql.car.CarModelRepo;
-import ru.job4j.repository.hql.car.EngineRepo;
+import ru.job4j.repository.store.adv.AdsRepository;
+import ru.job4j.repository.store.car.CarModelRepo;
+import ru.job4j.repository.store.car.EngineRepo;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;

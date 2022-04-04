@@ -7,7 +7,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import ru.job4j.model.adv.Advertisement;
 import ru.job4j.model.car.Car;
 import ru.job4j.pages.add.form.AdvForm;
-import ru.job4j.repository.hql.adv.AdsRepository;
+import ru.job4j.repository.store.adv.AdsRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

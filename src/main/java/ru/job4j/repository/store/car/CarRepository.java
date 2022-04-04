@@ -1,6 +1,7 @@
-package ru.job4j.repository.hql.car;
+package ru.job4j.repository.store.car;
 
-import ru.job4j.model.car.Model;
+
+import ru.job4j.model.car.Car;
 import ru.job4j.repository.Database;
 import ru.job4j.repository.Store;
 import ru.job4j.repository.database.psql.PsqlDatabase;
@@ -10,29 +11,29 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-public class CarModelRepo implements Store<Model> {
+public class CarRepository implements Store<Car> {
 
-    private final Database<Model> databaseDelegate =
-            new PsqlDatabase<>(Model.class);
+    private final Database<Car> databaseDelegate =
+            new PsqlDatabase<>(Car.class);
 
-    private CarModelRepo() {
+    public CarRepository() {
     }
 
     private static final class Lazy {
-        private static final Store<Model> INST = new CarModelRepo();
+        private static final Store<Car> INST = new CarRepository();
     }
 
-    public static Store<Model> instOf() {
-        return Lazy.INST;
-    }
-
-    @Override
-    public Model add(Model model) throws SQLException {
-        return databaseDelegate.add(model);
+    public static Store<Car> instOf() {
+        return CarRepository.Lazy.INST;
     }
 
     @Override
-    public boolean update(String id, Model model) {
+    public Car add(Car car) throws SQLException {
+        return databaseDelegate.add(car);
+    }
+
+    @Override
+    public boolean update(String id, Car car) {
         throw new UnsupportedOperationException("replace not supported yet");
     }
 
@@ -42,17 +43,17 @@ public class CarModelRepo implements Store<Model> {
     }
 
     @Override
-    public List<Model> findAll() {
-        return (List<Model>) databaseDelegate.findAll();
+    public List<Car> findAll() {
+        return (List<Car>) databaseDelegate.findAll();
     }
 
     @Override
-    public Model findById(String id) {
+    public Car findById(String id) {
         return databaseDelegate.findById(id);
     }
 
     @Override
-    public Collection<Model> executeSelect(String query, Map<String, Object> params) {
+    public Collection<Car> executeSelect(String query, Map<String, Object> params) {
         return databaseDelegate.executeSelect(query, params);
     }
 

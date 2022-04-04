@@ -1,4 +1,4 @@
-package ru.job4j.repository.hql.account;
+package ru.job4j.repository.store.account;
 
 import ru.job4j.model.user.Account;
 import ru.job4j.repository.Database;

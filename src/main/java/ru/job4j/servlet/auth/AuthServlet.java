@@ -1,7 +1,7 @@
 package ru.job4j.servlet.auth;
 
 import ru.job4j.model.user.Account;
-import ru.job4j.repository.hql.account.AccountRepository;
+import ru.job4j.repository.store.account.AccountRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

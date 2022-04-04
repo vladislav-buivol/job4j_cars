@@ -11,3 +11,18 @@ Website for car sales
 <li> Ajax, JavaScript, JQuery</li>
 <li> JSP</li>
 </ol>
+
+
+![ScreenShot](img/home.JPG)
+
+![ScreenShot](img/login.JPG)
+
+![ScreenShot](img/reg.JPG)
+
+![ScreenShot](img/mainPage.JPG)
+
+![ScreenShot](img/add.JPG)
+
+![ScreenShot](img/myAdv.JPG)
+
+

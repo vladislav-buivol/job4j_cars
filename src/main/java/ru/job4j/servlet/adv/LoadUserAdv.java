@@ -3,10 +3,9 @@ package ru.job4j.servlet.adv;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.graph.GraphAdapterBuilder;
-import org.hibernate.Session;
 import ru.job4j.model.adv.Advertisement;
 import ru.job4j.model.user.Account;
-import ru.job4j.repository.hql.adv.AdsRepository;
+import ru.job4j.repository.store.adv.AdsRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

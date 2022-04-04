@@ -1,6 +1,6 @@
-package ru.job4j.repository.hql.adv;
+package ru.job4j.repository.store.car;
 
-import ru.job4j.model.adv.Image;
+import ru.job4j.model.car.Engine;
 import ru.job4j.repository.Database;
 import ru.job4j.repository.Store;
 import ru.job4j.repository.database.psql.PsqlDatabase;
@@ -10,29 +10,29 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-public class ImageRepository implements Store<Image> {
+public class EngineRepo implements Store<Engine> {
 
-    private final Database<Image> databaseDelegate =
-            new PsqlDatabase<>(Image.class);
+    private final Database<Engine> databaseDelegate =
+            new PsqlDatabase<>(Engine.class);
 
-    private ImageRepository() {
+    private EngineRepo() {
     }
 
     private static final class Lazy {
-        private static final Store<Image> INST = new ImageRepository();
+        private static final Store<Engine> INST = new EngineRepo();
     }
 
-    public static Store<Image> instOf() {
-        return ImageRepository.Lazy.INST;
-    }
-
-    @Override
-    public Image add(Image image) throws SQLException {
-        return databaseDelegate.add(image);
+    public static Store<Engine> instOf() {
+        return Lazy.INST;
     }
 
     @Override
-    public boolean update(String id, Image image) {
+    public Engine add(Engine engine) throws SQLException {
+        return databaseDelegate.add(engine);
+    }
+
+    @Override
+    public boolean update(String id, Engine engine) {
         throw new UnsupportedOperationException("replace not supported yet");
     }
 
@@ -42,17 +42,17 @@ public class ImageRepository implements Store<Image> {
     }
 
     @Override
-    public List<Image> findAll() {
-        return (List<Image>) databaseDelegate.findAll();
+    public List<Engine> findAll() {
+        return (List<Engine>) databaseDelegate.findAll();
     }
 
     @Override
-    public Image findById(String id) {
+    public Engine findById(String id) {
         return databaseDelegate.findById(id);
     }
 
     @Override
-    public Collection<Image> executeSelect(String query, Map<String, Object> params) {
+    public Collection<Engine> executeSelect(String query, Map<String, Object> params) {
         return databaseDelegate.executeSelect(query, params);
     }
 
@@ -60,5 +60,4 @@ public class ImageRepository implements Store<Image> {
     public boolean executeUpdate(String query, Map<String, Object> params) {
         return databaseDelegate.executeUpdate(query, params);
     }
-
 }

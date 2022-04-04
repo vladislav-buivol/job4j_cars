@@ -2,7 +2,7 @@ package ru.job4j.servlet.car;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import ru.job4j.repository.hql.car.EngineRepo;
+import ru.job4j.repository.store.car.EngineRepo;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

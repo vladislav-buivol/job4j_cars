@@ -6,6 +6,8 @@ function logError(err) {
     console.log(err);
 }
 
+let data = null;
+
 function requestAdvData(successCallback, unSuccessCallback) {
     $.ajax({
         type: 'POST',
@@ -13,6 +15,7 @@ function requestAdvData(successCallback, unSuccessCallback) {
         dataType: 'json'
     }).done(function (response) {
         console.log(response)
+        data = response;
         successCallback(response)
     }).fail(function (err) {
         console.log(err);
@@ -85,4 +88,45 @@ function setData(advertisements) {
         divs += adDiv;
     }
     $("#advs").html(divs)
+}
+
+function filter() {
+    console.log("filter")
+    if (data != null) {
+        let models = [];
+        let engines = [];
+        $("input[name='model']:checked").each(function () {
+            models.push($(this).val());
+        });
+        $("input[name='engine']:checked").each(function () {
+            engines.push($(this).val());
+        });
+        let dataToShow = [];
+        if (models.length === 0 && engines.length === 0) {
+            setData(data);
+        } else {
+            for (let i in data) {
+                let adJson = data[i];
+                let key = Object.keys(adJson)[0];
+                let adv = adJson[key];
+                if (models.length !== 0 && engines.length !== 0) {
+                    if (models.includes(adv.car.model.id + '') && engines.includes(adv.car.engine.id + '')) {
+                        dataToShow.push(adJson);
+                        console.log(1);
+                    }
+
+                } else {
+                    if (models.includes(adv.car.model.id + '')) {
+                        dataToShow.push(adJson);
+                        console.log(2);
+                    } else if (engines.includes(adv.car.engine.id + '')) {
+                        dataToShow.push(adJson);
+                        console.log(3);
+                    }
+                }
+            }
+            setData(dataToShow);
+        }
+    }
+
 }

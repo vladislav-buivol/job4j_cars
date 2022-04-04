@@ -1,4 +1,4 @@
-package ru.job4j.repository.hql.adv;
+package ru.job4j.repository.store.adv;
 
 import ru.job4j.model.adv.Advertisement;
 import ru.job4j.repository.Database;
@@ -119,7 +119,6 @@ public class AdsRepository implements Store<Advertisement> {
                         + "where adv.id=:id"
                 ).setParameter("id", Integer.parseInt(id))
                         .list()).get(0));
-        //return databaseDelegate.findById(id);
     }
 
     @Override

@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.graph.GraphAdapterBuilder;
 import ru.job4j.model.adv.Advertisement;
-import ru.job4j.repository.hql.adv.AdsRepository;
+import ru.job4j.repository.store.adv.AdsRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

@@ -17,5 +17,4 @@ public class AuthFilter implements Filter {
         }
         filterChain.doFilter(req, resp);
     }
-
 }

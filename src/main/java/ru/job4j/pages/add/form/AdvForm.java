@@ -81,7 +81,6 @@ public class AdvForm {
                 } else {
                     String imgName = fileItem.getName();
                     String contentType = fileItem.getContentType();
-                    //resp.setContentType(contentType);
                     long size = fileItem.getSize();
                     ImgData imgData = new ImgData(imgName, contentType, fileItem.get(), size);
                     if (size > 0) {

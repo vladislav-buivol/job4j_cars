@@ -6,9 +6,7 @@ import ru.job4j.repository.Store;
 import ru.job4j.repository.database.psql.PsqlDatabase;
 
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AccountRepository implements Store<Account> {
 
@@ -33,7 +31,7 @@ public class AccountRepository implements Store<Account> {
                             .setParameter("email", email).list());
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return Collections.emptyList();
         }
     }
 

@@ -43,12 +43,11 @@ public class PsqlDatabase<T extends EntityModel> implements Database<T> {
 
     @Override
     public T add(T t) throws SQLException {
-        execute(session -> {
+        return execute(session -> {
             Integer id = (Integer) session.save(t);
             t.setId(id);
             return t;
         });
-        return null;
     }
 
     @Override
